@@ -55,9 +55,3 @@ To set up and run the Hell Garage Backend locally, follow these steps:
 This will start the Hell Garage Backend, and it will be ready to handle requests from the Hell Garage App.
 
 Feel free to explore the codebase, and make sure to refer to the documentation for specific details on how to use the API and integrate it with the Hell Garage App frontend.
-
-## Contributing
-
-If you'd like to contribute to the Hell Garage Backend, please refer to the [CONTRIBUTING.md](CONTRIBUTING.md) file for guidelines on how to get started.
-
-Thank you for being a part of the Hell Garage project!
