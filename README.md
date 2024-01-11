@@ -2,33 +2,59 @@
 
 ## Description
 
-Welcome to the Hell Garage Backend repository! This backend is designed to support the Hell Garage App, a project that follows the principles of Domain-Driven Design (DDD), Command Query Responsibility Segregation (CQRS), and is implemented using .NET 8. The project also adheres to best practices, including the use of the Unit of Work pattern to ensure data consistency.
+Welcome to the Hell Garage Backend repository! This backend is designed to support the Hell Garage App, a project that follows the principles of Clean Architecture, Domain-Driven Design (DDD), Command Query Responsibility Segregation (CQRS), and is implemented using .NET 8. The project also adheres to best practices, including the use of the Unit of Work pattern to ensure data consistency.
 
 ## Technologies Used
 
 - **.NET 8:** The backend is built on the .NET 8 framework, leveraging its latest features and improvements.
 
+- **Clean Architecture:** The project is structured based on Clean Architecture principles, promoting separation of concerns and maintainability.
+
 - **Domain-Driven Design (DDD):** The project follows the principles of DDD to model the domain and structure the codebase in a way that reflects the business logic.
 
 - **CQRS (Command Query Responsibility Segregation):** CQRS is employed to separate the command and query responsibilities, optimizing the system for reads and writes independently.
+  
+-  **Entity Framework Core (EF Core):** The backend uses EF Core as the Object-Relational Mapping (ORM) framework for interacting with the database.
+
+- **Result Types:** Instead of relying on exceptions for error handling, the project utilizes result types to represent the success or failure of operations. This approach promotes a more functional and explicit way of dealing with outcomes.
+
+## Project Structure
+
+The Hell Garage Backend is organized into distinct projects, each serving a specific purpose:
+
+- **Domain:** Contains the core domain models and business logic. This project represents the heart of the application.
+
+- **API:** Implements the RESTful API using Minimal API, with no traditional controllers. The project focuses on simplicity and minimalism for external communication.
+
+- **Infrastructure:** Deals with external concerns such as databases, file systems, and third-party integrations.
+
+- **Application:** Implements application-specific business rules and orchestrates interactions between the domain and infrastructure layers.
+
+- **Shared:** Contains shared components, constants, and utilities used across different layers of the application.
+
+- **Tests:** Includes unit tests for ensuring the correctness of the implemented features.
+
+## Project Structure
+
+The Hell Garage Backend is organized into distinct projects, each serving a specific purpose:
+
+- **Domain:** Contains the core domain models and business logic. This project represents the heart of the application.
+
+- **API:** Implements the RESTful API using Minimal API, with no traditional controllers. The project focuses on simplicity and minimalism for external communication.
+
+- **Infrastructure:** Deals with external concerns such as databases, file systems, and third-party integrations.
+
+- **Application:** Implements application-specific business rules and orchestrates interactions between the domain and infrastructure layers.
+
+- **Shared:** Contains shared components, constants, and utilities used across different layers of the application.
+
+- **Tests:** Includes unit tests for ensuring the correctness of the implemented features.
 
 ## Testing
 
 - **Unit Tests:** The Hell Garage Backend includes a comprehensive suite of unit tests for entities. These tests ensure the correctness of the business logic and help maintain code quality.
 
 - **Testing Framework:** We use the Fluent Assertions testing framework to write clear and expressive unit tests. This framework provides a fluent syntax for assertions, making the tests more readable and maintainable.
-
-## Key Features
-
-1. **Domain Models:** The backend includes well-defined domain models that represent the core entities and their relationships within the Hell Garage domain.
-
-2. **Commands and Queries:** Commands are used to perform write operations, while queries handle read operations. This separation ensures a clear distinction between actions that modify the system state and those that retrieve information.
-
-3. **Repositories:** The project includes repositories that implement the Unit of Work pattern. This ensures that multiple operations are performed atomically, maintaining data consistency.
-
-4. **Dependency Injection:** The backend uses dependency injection to manage the components and their dependencies, promoting modularity and testability.
-
-5. **RESTful API:** The backend provides a RESTful API to interact with the system from the client side.
 
 ## Docker Compose
 
