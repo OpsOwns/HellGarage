@@ -12,6 +12,12 @@ Welcome to the Hell Garage Backend repository! This backend is designed to suppo
 
 - **CQRS (Command Query Responsibility Segregation):** CQRS is employed to separate the command and query responsibilities, optimizing the system for reads and writes independently.
 
+## Testing
+
+- **Unit Tests:** The Hell Garage Backend includes a comprehensive suite of unit tests for entities. These tests ensure the correctness of the business logic and help maintain code quality.
+
+- **Testing Framework:** We use the Fluent Assertions testing framework to write clear and expressive unit tests. This framework provides a fluent syntax for assertions, making the tests more readable and maintainable.
+
 ## Key Features
 
 1. **Domain Models:** The backend includes well-defined domain models that represent the core entities and their relationships within the Hell Garage domain.
@@ -23,6 +29,21 @@ Welcome to the Hell Garage Backend repository! This backend is designed to suppo
 4. **Dependency Injection:** The backend uses dependency injection to manage the components and their dependencies, promoting modularity and testability.
 
 5. **RESTful API:** The backend provides a RESTful API to interact with the system from the client side.
+
+## Docker Compose
+
+- **Containerization:** The Hell Garage Backend can be run using Docker Compose. The `docker-compose.yml` file included in the repository sets up the backend along with a Microsoft SQL Server database in separate containers.
+
+- **How to Run:**
+  1. Ensure Docker and Docker Compose are installed on your system.
+  2. Navigate to the project directory.
+  3. Run the following command:
+
+    ```bash
+    docker-compose up
+    ```
+
+This will start the Hell Garage Backend and the associated SQL Server database using Docker Compose. Feel free to explore the codebase, run tests, and interact with the system.
 
 ## Getting Started
 
