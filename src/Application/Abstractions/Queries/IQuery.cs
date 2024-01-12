@@ -1,8 +1,9 @@
-﻿namespace Shared.Cqrs.Queries;
+﻿namespace Application.Abstractions.Queries;
 
 public interface IQuery<T> : IQuery
 {
 }
+
 public interface IQuery
 {
 }

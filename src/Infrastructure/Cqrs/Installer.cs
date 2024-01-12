@@ -1,10 +1,10 @@
-﻿namespace Infrastructure.Cqrs;
+namespace Infrastructure.Cqrs;
 
 public static class Installer
 {
     public static IServiceCollection AddCqrsDispatcher(this IServiceCollection services)
     {
-        var assemblies = Assembly.GetExecutingAssembly();
+        var assemblies = AppDomain.CurrentDomain.GetAssemblies();
 
         services.AddSingleton<IQueryDispatcher, QueryDispatcher>();
         services.Scan(s => s.FromAssemblies(assemblies)

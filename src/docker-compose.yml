@@ -1,4 +1,5 @@
-﻿services:
+﻿name: "hell-garage"
+services:
   
   api:
     container_name: api
@@ -6,10 +7,16 @@
     build:
       context: .
       dockerfile: API/Dockerfile
-    ports:
-      - 8080:80
     depends_on:
       - database
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+    ports:
+      - "5000:80"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+
   database:
     container_name: db
     image: mcr.microsoft.com/mssql/server:2022-latest

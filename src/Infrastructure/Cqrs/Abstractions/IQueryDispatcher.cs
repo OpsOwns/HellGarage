@@ -1,4 +1,4 @@
-﻿namespace Shared.Cqrs.Queries;
+﻿namespace Infrastructure.Cqrs.Abstractions;
 
 public interface IQueryDispatcher
 {

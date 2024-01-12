@@ -9,6 +9,12 @@ public class DatabaseInitializer(IServiceProvider serviceProvider, ILogger<Datab
 
         try
         {
+            if (await context.Database.GetService<IRelationalDatabaseCreator>().ExistsAsync(cancellationToken))
+            {
+                logger.LogInformation("Not needed to initialize database");
+                return;
+            }
+
             await context.Database
                 .EnsureCreatedAsync(cancellationToken);
 

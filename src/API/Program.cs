@@ -1,3 +1,5 @@
+using API.EndPoints.User;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
@@ -14,6 +16,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.MapUserEndpoints();
 
+app.MapGet("/", context => context.Response.WriteAsync("HellGarage API Backend :)"));
 
 await app.RunAsync();
