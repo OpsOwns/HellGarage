@@ -23,5 +23,6 @@ public static class DomainErrors
         public static Error InvalidCharacters(string name) => new("User.InvalidCharacters", $"{name} should only contain letters.");
         public static Error OutOfRangeCharacter(string name) => new("User.RangeCharacter", $"{name} must be between 2 and 50 characters.");
         public static Error InvalidPhoneNumber(string number) => new("User.InvalidPhoneNumber", $"Provided number '{number}' is invalid.");
+        public static Error EmailAlreadyExits(string email) => new("User.AlreadyExistsEmail", $"Provided email '{email}' already exists in the system.");
     }
 }

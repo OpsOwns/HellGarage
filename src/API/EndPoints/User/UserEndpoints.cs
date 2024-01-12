@@ -14,7 +14,7 @@ public static class UserEndpoints
 
             if (result.IsFailure)
             {
-                return Results.BadRequest(result.Error);
+                return Results.BadRequest(new ErrorResponse(result.Error));
             }
 
             return Results.Ok();

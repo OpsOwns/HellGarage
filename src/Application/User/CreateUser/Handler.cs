@@ -18,6 +18,12 @@ internal sealed class Handler(IUserRepository userRepository) : ICommandHandler<
         }
 
         var user = Domain.User.User.Create(firstName.Value, lastName.Value, password.Value, email.Value, Profession.Cleaner, phone.Value);
+        
+        if ( await userRepository.IsEmailExists(user.Email, cancellationToken))
+        {
+            return Result.Failure(DomainErrors.User.EmailAlreadyExits(user.Email.Value));
+        }
+
         await userRepository.CreateUserAsync(user, cancellationToken);
 
         return Result.Success();
