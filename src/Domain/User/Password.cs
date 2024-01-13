@@ -12,21 +12,16 @@ public sealed class Password : ValueObject
         Value = value;
     }
 
-    public static Result<Password> Create(string password)
+    public static Password Create(string password)
     {
         if (string.IsNullOrWhiteSpace(password))
-            return DomainErrors.General.ValueIsRequired();
+            throw new InvalidPasswordException(password, "Password cannot be null or empty.");
 
-        switch (password.Length)
-        {
-            case < MinLength:
-                return DomainErrors.General.ValueTooLong(MinLength);
-            case > MaxLength:
-                return DomainErrors.General.ValueTooLong(MaxLength);
-        }
+        if (password.Length is < MinLength or > MaxLength)
+            throw new InvalidPasswordException(password, $"Password length must be between {MinLength} and {MaxLength} characters.");
 
         if (!Regex.IsMatch(password, PasswordComplexityExpression))
-            return DomainErrors.User.PasswordBreakComplexityRules();
+            throw new InvalidPasswordException(password, "Password must contain at least one letter, two digits, and one special character.");
 
         return new Password(password);
     }
@@ -42,7 +37,7 @@ public sealed class Password : ValueObject
         string salt = HashCalculator.GenerateSalt();
         string hash = HashCalculator.Calculate(Value, salt);
 
-        return new HashedPassword(hash, salt);
+        return HashedPassword.Create(hash, salt);
     }
 
 

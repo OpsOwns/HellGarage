@@ -2,6 +2,6 @@
 
 public interface ICommandDispatcher
 {
-    ValueTask<Result> CommandAsync<TCommand>(TCommand command, CancellationToken cancellationToken = default)
+    ValueTask CommandAsync<TCommand>(TCommand command, CancellationToken cancellationToken = default)
         where TCommand : class, ICommand;
 }

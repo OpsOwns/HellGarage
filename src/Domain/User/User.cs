@@ -8,7 +8,11 @@ public sealed class User : Entity
     public HashedPassword HashedPassword { get; private set; }
     public Profession Profession { get; private set; }
     public Phone Phone { get; private set; }
-    private User(){}
+
+    private User()
+    {
+    }
+
     private User(FirstName firstName,
         LastName lastName,
         HashedPassword hashedPassword,

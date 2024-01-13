@@ -10,16 +10,16 @@ public sealed class Phone : ValueObject
         Value = value;
     }
 
-    public static Result<Phone> Create(string number)
+    public static Phone Create(string number)
     {
         if (string.IsNullOrEmpty(number))
         {
-            return DomainErrors.General.ValueIsRequired();
+            throw new InvalidPhoneException(number, "Phone cannot be null or empty.");
         }
 
         if (!Regex.IsMatch(number, Pattern))
         {
-            return DomainErrors.User.InvalidPhoneNumber(number);
+            throw new InvalidPhoneException(number, "Invalid phone number format. It must be a 9-digit numeric value.");
         }
 
         return new Phone(number);

@@ -3,26 +3,27 @@
 public sealed class FirstName : ValueObject
 {
     public string Value { get; init; }
+
     private FirstName(string value)
     {
         Value = value;
     }
 
-    public static Result<FirstName> Create(string fistName)
+    public static FirstName Create(string fistName)
     {
         if (string.IsNullOrEmpty(fistName))
         {
-            return DomainErrors.General.ValueIsRequired();
+            throw new InvalidFirstNameException(fistName, "First name cannot be null or empty.");
         }
 
         if (fistName.Length is < 2 or > 50)
         {
-            return DomainErrors.User.OutOfRangeCharacter("First name");
+            throw new InvalidFirstNameException(fistName, "First name length should be between 2 and 50 characters.");
         }
 
         if (!fistName.All(char.IsLetter))
         {
-            return DomainErrors.User.InvalidCharacters("First name");
+            throw new InvalidFirstNameException(fistName, "First name should contain only letters.");
         }
 
         return new FirstName(fistName);

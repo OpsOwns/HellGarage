@@ -2,7 +2,7 @@
 
 internal sealed class Handler(IUserRepository userRepository) : ICommandHandler<Command>
 {
-    public async ValueTask<Result> HandleAsync(Command command, CancellationToken cancellationToken = default)
+    public async ValueTask HandleAsync(Command command, CancellationToken cancellationToken = default)
     {
         var email = Email.Create(command.Email);
         var firstName = FirstName.Create(command.FirstName);
@@ -10,22 +10,12 @@ internal sealed class Handler(IUserRepository userRepository) : ICommandHandler<
         var phone = Phone.Create(command.Phone);
         var password = Password.Create(command.Password);
 
-        var errorResult = Result.Combine(email, firstName, lastName, password, phone);
-
-        if (errorResult.IsFailure)
+        if (await userRepository.IsEmailExists(email, cancellationToken))
         {
-            return errorResult;
+            throw new EmailAlreadyExistsException(email.Value);
         }
 
-        var user = Domain.User.User.Create(firstName.Value, lastName.Value, password.Value, email.Value, Profession.Cleaner, phone.Value);
-        
-        if ( await userRepository.IsEmailExists(user.Email, cancellationToken))
-        {
-            return Result.Failure(DomainErrors.User.EmailAlreadyExits(user.Email.Value));
-        }
-
+        var user = Domain.User.User.Create(firstName, lastName, password, email, Profession.Cleaner, phone);
         await userRepository.CreateUserAsync(user, cancellationToken);
-
-        return Result.Success();
     }
 }

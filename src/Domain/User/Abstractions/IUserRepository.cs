@@ -1,4 +1,4 @@
-﻿namespace Domain.User;
+﻿namespace Domain.User.Abstractions;
 
 public interface IUserRepository : IRepository
 {

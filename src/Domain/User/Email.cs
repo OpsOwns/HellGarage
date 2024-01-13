@@ -3,21 +3,22 @@
 public sealed class Email : ValueObject
 {
     public string Value { get; init; }
+
     private Email(string value)
     {
         Value = value;
     }
 
-    public static Result<Email> Create(string email)
+    public static Email Create(string email)
     {
         if (string.IsNullOrWhiteSpace(email))
         {
-            return DomainErrors.General.ValueIsRequired();
+            throw new InvalidEmailException(email);
         }
 
         if (!new EmailAddressAttribute().IsValid(email))
         {
-            return DomainErrors.User.InvalidEmail(email);
+            throw new InvalidEmailException(email);
         }
 
         return new Email(email);

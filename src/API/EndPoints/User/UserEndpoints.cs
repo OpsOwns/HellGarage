@@ -10,12 +10,7 @@ public static class UserEndpoints
         {
             var userCommand = new Command(request.Email, request.FirstName, request.LastName, request.Phone, request.Password);
 
-            var result = await commandDispatcher.CommandAsync(userCommand, cancellationToken);
-
-            if (result.IsFailure)
-            {
-                return Results.BadRequest(new ErrorResponse(result.Error));
-            }
+            await commandDispatcher.CommandAsync(userCommand, cancellationToken);
 
             return Results.Ok();
         });

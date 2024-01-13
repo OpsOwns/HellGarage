@@ -1,4 +1,6 @@
-﻿namespace Infrastructure.Database.Repositories;
+﻿using Domain.User.Abstractions;
+
+namespace Infrastructure.Database.Repositories;
 
 public class UserRepository(HellDbContext hellDbContext) : IUserRepository
 {

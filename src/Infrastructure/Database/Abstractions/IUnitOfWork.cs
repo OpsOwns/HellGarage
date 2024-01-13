@@ -2,5 +2,5 @@
 
 public interface IUnitOfWork
 {
-    Task<Result> ExecuteAsync(Func<ValueTask<Result>> action, CancellationToken cancellationToken = default);
+    Task ExecuteAsync(Func<ValueTask> action, CancellationToken cancellationToken = default);
 }

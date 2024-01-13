@@ -5,22 +5,22 @@ public sealed class HashedPassword : ValueObject
     public string Hash { get; init; }
     public string Salt { get; init; }
 
-    public HashedPassword(string hash, string salt)
+    private HashedPassword(string hash, string salt)
     {
         Hash = hash;
         Salt = salt;
     }
 
-    public static Result<HashedPassword> Create(string hash, string salt)
+    public static HashedPassword Create(string hash, string salt)
     {
         if (string.IsNullOrWhiteSpace(hash))
         {
-            return DomainErrors.General.ValueIsRequired();
+            throw new EmptyHashException();
         }
 
         if (string.IsNullOrWhiteSpace(salt))
         {
-            return DomainErrors.General.ValueIsRequired();
+            throw new EmptySaltException();
         }
 
         return new HashedPassword(hash, salt);

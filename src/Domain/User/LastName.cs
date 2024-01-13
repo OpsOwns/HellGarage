@@ -9,21 +9,21 @@ public sealed class LastName : ValueObject
         Value = value;
     }
 
-    public static Result<LastName> Create(string lastName)
+    public static LastName Create(string lastName)
     {
         if (string.IsNullOrEmpty(lastName))
         {
-            return DomainErrors.General.ValueIsRequired();
+            throw new InvalidLastNameException(lastName, "Last name cannot be null or empty.");
         }
 
         if (lastName.Length is < 2 or > 50)
         {
-            return DomainErrors.User.OutOfRangeCharacter("Last name");
+            throw new InvalidLastNameException(lastName, "Last name length should be between 2 and 50 characters.");
         }
 
         if (!lastName.All(char.IsLetter))
         {
-            return DomainErrors.User.InvalidCharacters("Last name");
+            throw new InvalidLastNameException(lastName, "Last name should contain only letters.");
         }
 
         return new LastName(lastName);
