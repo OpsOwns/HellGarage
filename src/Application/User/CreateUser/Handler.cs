@@ -1,4 +1,6 @@
-﻿namespace Application.User.CreateUser;
+﻿using Application.User.Exceptions;
+
+namespace Application.User.CreateUser;
 
 internal sealed class Handler(IUserRepository userRepository) : ICommandHandler<Command>
 {

@@ -1,12 +1,13 @@
-using API.EndPoints.User;
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
-
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddInfrastructure();
+builder.Logging.AddConsole();
 
 var app = builder.Build();
+
+app.UseExceptionHandler(_ => { });
 
 if (app.Environment.IsDevelopment())
 {
