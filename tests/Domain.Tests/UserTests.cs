@@ -1,6 +1,4 @@
-﻿using Domain.User.Exceptions;
-
-namespace Domain.Tests;
+﻿namespace Domain.Tests;
 
 public class UserTests
 {
