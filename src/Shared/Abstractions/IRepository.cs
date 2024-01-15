@@ -1,4 +1,4 @@
-﻿namespace Shared.Domain;
+﻿namespace Shared.Abstractions;
 
 public interface IRepository
 {

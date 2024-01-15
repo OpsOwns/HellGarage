@@ -1,4 +1,6 @@
-﻿namespace Domain.User.Abstractions;
+﻿using Shared.Abstractions;
+
+namespace Domain.User.Abstractions;
 
 public interface IUserRepository : IRepository
 {
