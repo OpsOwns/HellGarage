@@ -1,6 +1,6 @@
 ﻿namespace Infrastructure.Auth;
 
-internal sealed class Authenticator(AuthOptions options, IClock clock) : IAuthenticator
+internal sealed class Authenticator(AuthOptions options, TimeProvider timeProvider) : IAuthenticator
 {
     private readonly SigningCredentials _signingCredentials = new(new SymmetricSecurityKey(
             Encoding.UTF8.GetBytes(options.SigningKey)),
@@ -8,9 +8,9 @@ internal sealed class Authenticator(AuthOptions options, IClock clock) : IAuthen
 
     private readonly JwtSecurityTokenHandler _jwtSecurityToken = new();
 
-    public JwtDto CreateToken(Guid userId, Email email)
+    public string CreateAccessToken(Guid userId, Email email)
     {
-        var now = clock.Current();
+        var now = timeProvider.GetUtcNow();
         var claims = new List<Claim>
         {
             new(JwtRegisteredClaimNames.Sub, userId.ToString()),
@@ -19,9 +19,9 @@ internal sealed class Authenticator(AuthOptions options, IClock clock) : IAuthen
         };
 
         var expires = now.Add(options.Expiry);
-        var jwt = new JwtSecurityToken(options.SigningKey, options.Audience, claims, now, expires, _signingCredentials);
+        var jwt = new JwtSecurityToken(options.SigningKey, options.Audience, claims, now.DateTime, expires.DateTime, _signingCredentials);
         var token = _jwtSecurityToken.WriteToken(jwt);
 
-        return new JwtDto(token);
+        return token;
     }
 }

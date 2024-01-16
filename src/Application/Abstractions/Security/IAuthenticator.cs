@@ -2,5 +2,5 @@
 
 public interface IAuthenticator
 {
-    JwtDto CreateToken(Guid userId, Email email);
+    string CreateAccessToken(Guid userId, Email email);
 }

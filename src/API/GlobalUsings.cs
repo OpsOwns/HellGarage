@@ -3,7 +3,8 @@
 global using API.EndPoints.User;
 global using API.EndPoints.User.Requests;
 global using API.Exceptions;
-global using Application.User.CreateUser;
+global using Application.User.Create;
+global using Application.User.SignIn;
 global using Humanizer;
 global using Infrastructure;
 global using Infrastructure.Cqrs.Abstractions;

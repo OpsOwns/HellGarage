@@ -7,6 +7,7 @@
         <InvariantGlobalization>false</InvariantGlobalization>
         <UserSecretsId>9b95302b-b1cc-4266-ae59-59fb7fa99428</UserSecretsId>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <WarningsAsErrors>Nullable;CS8600;CS8602;CS8603</WarningsAsErrors>
     </PropertyGroup>
 
     <ItemGroup>

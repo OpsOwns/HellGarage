@@ -6,11 +6,19 @@ public static class UserEndpoints
     {
         var group = app.MapGroup("api/user");
 
-        group.MapPost("", async (CreateUserRequest request, ICommandDispatcher commandDispatcher, CancellationToken cancellationToken) =>
+        group.MapPost("create", async (CreateRequest request, ICommandDispatcher commandDispatcher, CancellationToken cancellationToken) =>
         {
-            var userCommand = new Command(request.Email, request.FirstName, request.LastName, request.Phone, request.Password);
+            var userCommand = new CreateCommand(request.Email, request.FirstName, request.LastName, request.Phone, request.Password);
 
             await commandDispatcher.CommandAsync(userCommand, cancellationToken);
+
+            return Results.Ok();
+        });
+        group.MapPost("sign-in", async (LoginRequest request, ICommandDispatcher commandDispatcher, CancellationToken cancellationToken) =>
+        {
+            var signInCommand = new SignInCommand(request.Email, request.Password);
+
+            await commandDispatcher.CommandAsync(signInCommand, cancellationToken);
 
             return Results.Ok();
         });

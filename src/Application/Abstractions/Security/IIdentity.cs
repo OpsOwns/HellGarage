@@ -3,4 +3,5 @@
 public interface IIdentity
 {
     void Set(JwtDto jwt);
+    JwtDto Get();
 }

@@ -37,5 +37,11 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .HasColumnName("Profession")
             .HasConversion(p => p.Value, v => Profession.FromValue(v)!)
             .IsRequired().HasColumnOrder(5);
+        builder.OwnsOne(x => x.RefreshToken, cfg =>
+        {
+            cfg.Property(token => token.Value).HasColumnName("RefreshToken").HasColumnOrder(8);
+            cfg.Property(time => time.Expiry).HasColumnName("ExpireToken").HasColumnOrder(9);
+            cfg.Property(revoked => revoked.Revoked).HasColumnName("IsRevoked").HasColumnOrder(10);
+        });
     }
 }

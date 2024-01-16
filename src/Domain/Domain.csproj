@@ -5,6 +5,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <AssemblyName>Domain</AssemblyName>
+        <WarningsAsErrors>Nullable;CS8600;CS8602;CS8603</WarningsAsErrors>
     </PropertyGroup>
 
     <ItemGroup>

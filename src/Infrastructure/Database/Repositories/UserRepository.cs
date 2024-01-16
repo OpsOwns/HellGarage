@@ -1,6 +1,4 @@
-﻿using Domain.User.Abstractions;
-
-namespace Infrastructure.Database.Repositories;
+﻿namespace Infrastructure.Database.Repositories;
 
 public class UserRepository(HellDbContext hellDbContext) : IUserRepository
 {
@@ -10,4 +8,7 @@ public class UserRepository(HellDbContext hellDbContext) : IUserRepository
 
     public async Task<bool> IsEmailExists(Email userEmail, CancellationToken cancellationToken = default) =>
         await _users.AnyAsync(x => x.Email == userEmail, cancellationToken);
+
+    public async Task<User?> GetUserAsync(Email email, CancellationToken cancellationToken = default) =>
+        await _users.SingleOrDefaultAsync(x => x.Email == email, cancellationToken);
 }
