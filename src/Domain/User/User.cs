@@ -9,10 +9,9 @@ public sealed class User : Entity
     public Profession Profession { get; private set; } = null!;
     public Phone Phone { get; private set; } = null!;
     public RefreshToken? RefreshToken { get; private set; }
+    public Role Role => Profession == Profession.OfficeWorker ? Role.Admin : Role.User;
 
-    private User()
-    {
-    }
+    private User() { }
 
     private User(FirstName firstName,
         LastName lastName,

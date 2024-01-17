@@ -1,3 +1,3 @@
 ﻿namespace Application.User.Exceptions;
 
-internal sealed class UserNotFoundException(Email email) : CustomException($"No user with the email '{email.Value}' was found in the system");
+internal sealed class UserNotFoundException(string value) : CustomException($"No user with the provided value '{value}' was found in the system");

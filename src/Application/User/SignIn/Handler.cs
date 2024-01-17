@@ -11,7 +11,7 @@ internal sealed class Handler(IUserRepository userRepository, IAuthenticator aut
 
         if (user is null)
         {
-            throw new UserNotFoundException(email);
+            throw new UserNotFoundException(email.Value);
         }
 
         if (!password.IsMatch(user.HashedPassword))
@@ -19,7 +19,7 @@ internal sealed class Handler(IUserRepository userRepository, IAuthenticator aut
             throw new InvalidPasswordException(password);
         }
 
-        var token = authenticator.CreateAccessToken(user.Id, user.Email);
+        var token = authenticator.CreateAccessToken(user.Id, user.Email, user.Role);
         var refreshToken = RefreshToken.Generate();
 
         user.AssignRefreshToken(refreshToken);

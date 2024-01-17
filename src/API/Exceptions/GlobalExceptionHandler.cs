@@ -11,6 +11,8 @@ internal sealed class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> log
         {
             CustomException => (StatusCodes.Status400BadRequest,
                 new Error(exception.GetType().Name.Underscore().Replace("_exception", string.Empty), exception.Message)),
+            SecurityTokenValidationException => (StatusCodes.Status400BadRequest,
+                new Error(exception.GetType().Name.Underscore().Replace("_exception", string.Empty), exception.Message)),
             _ => (StatusCodes.Status500InternalServerError, new Error("error", "There was an error."))
         };
 

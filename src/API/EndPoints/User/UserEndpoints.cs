@@ -6,7 +6,7 @@ public static class UserEndpoints
     {
         var group = app.MapGroup("api/user");
 
-        group.MapPost("create", async (CreateRequest request, ICommandDispatcher commandDispatcher, CancellationToken cancellationToken) =>
+        group.RequireAuthorization(EndPointsShared.Admin).MapPost("create", async (CreateRequest request, ICommandDispatcher commandDispatcher, CancellationToken cancellationToken) =>
         {
             var userCommand = new CreateCommand(request.Email, request.FirstName, request.LastName, request.Phone, request.Password);
 
@@ -14,11 +14,22 @@ public static class UserEndpoints
 
             return Results.Ok();
         });
-        group.MapPost("sign-in", async (LoginRequest request, ICommandDispatcher commandDispatcher, CancellationToken cancellationToken) =>
+
+        group.AllowAnonymous().MapPost("sign-in", async (LoginRequest request, ICommandDispatcher commandDispatcher, CancellationToken cancellationToken) =>
         {
             var signInCommand = new SignInCommand(request.Email, request.Password);
 
             await commandDispatcher.CommandAsync(signInCommand, cancellationToken);
+
+            return Results.Ok();
+        });
+
+        group.AllowAnonymous().MapPost("refresh-token", async (RefreshTokenRequest request,
+            ICommandDispatcher commandDispatcher, CancellationToken cancellationToken) =>
+        {
+            var renewTokenCommand = new RenewTokenCommand(request.AccessToken, request.RefreshToken);
+
+            await commandDispatcher.CommandAsync(renewTokenCommand, cancellationToken);
 
             return Results.Ok();
         });

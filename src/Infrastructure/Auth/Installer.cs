@@ -8,7 +8,21 @@ public static class Installer
 
         var options = services.BuildServiceProvider().GetRequiredService<AuthOptions>();
 
-        services
+        var tokenValidationParameters = new TokenValidationParameters
+        {
+            ValidIssuer = options.Issuer,
+            ClockSkew = TimeSpan.Zero,
+            RequireAudience = true,
+            ValidateIssuer = false,
+            IssuerSigningKey =
+                new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.SigningKey)),
+            ValidateLifetime = true,
+            ValidateActor = false,
+            ValidateTokenReplay = false,
+            ValidateIssuerSigningKey = true
+        };
+
+        services.AddSingleton(tokenValidationParameters)
             .AddSingleton<IAuthenticator, Authenticator>()
             .AddSingleton<IIdentity, Identity>()
             .AddAuthentication(o =>
@@ -20,19 +34,12 @@ public static class Installer
             {
                 o.Audience = options.Audience;
                 o.IncludeErrorDetails = true;
-                o.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidIssuer = options.Issuer,
-                    ClockSkew = TimeSpan.Zero,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.SigningKey))
-                };
+                o.TokenValidationParameters = tokenValidationParameters;
             });
 
         services.AddAuthorizationBuilder()
-            .AddPolicy("is-admin", policy =>
-            {
-                policy.RequireRole("admin");
-            });
+            .AddPolicy("admin", policy => { policy.RequireRole("admin"); })
+            .AddPolicy("user", policy => { policy.RequireRole("user"); });
 
         return services;
     }

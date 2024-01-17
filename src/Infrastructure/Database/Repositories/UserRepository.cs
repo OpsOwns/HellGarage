@@ -1,6 +1,6 @@
 ﻿namespace Infrastructure.Database.Repositories;
 
-public class UserRepository(HellDbContext hellDbContext) : IUserRepository
+internal sealed class UserRepository(HellDbContext hellDbContext) : IUserRepository
 {
     private readonly DbSet<User> _users = hellDbContext.Users;
 
@@ -11,4 +11,8 @@ public class UserRepository(HellDbContext hellDbContext) : IUserRepository
 
     public async Task<User?> GetUserAsync(Email email, CancellationToken cancellationToken = default) =>
         await _users.SingleOrDefaultAsync(x => x.Email == email, cancellationToken);
+
+    public async Task<User?> GetUserByIdAsync(Guid userId, CancellationToken cancellationToken)
+        => await _users.SingleOrDefaultAsync(x => x.Id == userId,
+            cancellationToken);
 }
