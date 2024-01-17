@@ -1,4 +1,4 @@
-﻿namespace Domain.User;
+﻿namespace Domain.User.ValueObjects;
 
 public sealed class Email : ValueObject
 {
@@ -11,15 +11,9 @@ public sealed class Email : ValueObject
 
     public static Email Create(string email)
     {
-        if (string.IsNullOrWhiteSpace(email))
-        {
-            throw new InvalidEmailException(email);
-        }
+        if (string.IsNullOrWhiteSpace(email)) throw new InvalidEmailException(email);
 
-        if (!new EmailAddressAttribute().IsValid(email))
-        {
-            throw new InvalidEmailException(email);
-        }
+        if (!new EmailAddressAttribute().IsValid(email)) throw new InvalidEmailException(email);
 
         return new Email(email);
     }

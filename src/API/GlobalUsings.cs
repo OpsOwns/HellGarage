@@ -2,7 +2,7 @@
 
 global using API.EndPoints.User;
 global using API.EndPoints.User.Requests;
-global using API.Exceptions;
+global using API.SeedWork;
 global using Application.User.Create;
 global using Application.User.RenewToken;
 global using Application.User.SignIn;

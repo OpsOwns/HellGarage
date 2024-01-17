@@ -1,4 +1,4 @@
-﻿namespace API.Exceptions;
+﻿namespace API.SeedWork;
 
 internal sealed class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger) : IExceptionHandler
 {

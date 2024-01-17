@@ -1,4 +1,4 @@
-﻿namespace Domain.User;
+﻿namespace Domain.User.ValueObjects;
 
 public sealed class Password : ValueObject
 {
@@ -34,8 +34,8 @@ public sealed class Password : ValueObject
 
     public HashedPassword Hash()
     {
-        string salt = HashCalculator.GenerateSalt();
-        string hash = HashCalculator.Calculate(Value, salt);
+        var salt = HashCalculator.GenerateSalt();
+        var hash = HashCalculator.Calculate(Value, salt);
 
         return HashedPassword.Create(hash, salt);
     }
@@ -43,7 +43,7 @@ public sealed class Password : ValueObject
 
     public bool IsMatch(HashedPassword hashedPassword)
     {
-        string hash = HashCalculator.Calculate(Value, hashedPassword.Salt);
+        var hash = HashCalculator.Calculate(Value, hashedPassword.Salt);
 
         return hashedPassword.Hash == hash;
     }

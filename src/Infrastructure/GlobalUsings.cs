@@ -8,6 +8,7 @@ global using Application.Abstractions.Security;
 global using Application.User.DTO;
 global using Domain.User;
 global using Domain.User.Abstractions;
+global using Domain.User.ValueObjects;
 global using Infrastructure.Auth;
 global using Infrastructure.Cqrs;
 global using Infrastructure.Cqrs.Abstractions;

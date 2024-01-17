@@ -1,4 +1,4 @@
-﻿namespace Domain.User;
+﻿namespace Domain.User.ValueObjects;
 
 public class RefreshToken : ValueObject
 {
@@ -13,12 +13,21 @@ public class RefreshToken : ValueObject
         Expiry = expiry;
     }
 
-    public RefreshToken RevokeToken() => new(Value, Expiry, true);
+    public RefreshToken RevokeToken()
+    {
+        return new RefreshToken(Value, Expiry, true);
+    }
 
-    public bool IsMatch(string token) => Value == token;
+    public bool IsMatch(string token)
+    {
+        return Value == token;
+    }
 
-    public bool IsExpired() => TimeProvider.System.GetUtcNow().TimeOfDay > Expiry;
-    
+    public bool IsExpired()
+    {
+        return TimeProvider.System.GetUtcNow().TimeOfDay > Expiry;
+    }
+
     public static RefreshToken Generate()
     {
         var randomNumber = new byte[64];

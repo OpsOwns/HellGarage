@@ -1,4 +1,4 @@
-﻿namespace Domain.User;
+﻿namespace Domain.User.ValueObjects;
 
 public sealed class HashedPassword : ValueObject
 {
@@ -13,15 +13,9 @@ public sealed class HashedPassword : ValueObject
 
     public static HashedPassword Create(string hash, string salt)
     {
-        if (string.IsNullOrWhiteSpace(hash))
-        {
-            throw new EmptyHashException();
-        }
+        if (string.IsNullOrWhiteSpace(hash)) throw new EmptyHashException();
 
-        if (string.IsNullOrWhiteSpace(salt))
-        {
-            throw new EmptySaltException();
-        }
+        if (string.IsNullOrWhiteSpace(salt)) throw new EmptySaltException();
 
         return new HashedPassword(hash, salt);
     }

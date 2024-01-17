@@ -1,4 +1,4 @@
-﻿namespace Domain.User;
+﻿namespace Domain.User.ValueObjects;
 
 public sealed class Phone : ValueObject
 {
@@ -12,15 +12,9 @@ public sealed class Phone : ValueObject
 
     public static Phone Create(string number)
     {
-        if (string.IsNullOrEmpty(number))
-        {
-            throw new InvalidPhoneException(number, "Phone cannot be null or empty.");
-        }
+        if (string.IsNullOrEmpty(number)) throw new InvalidPhoneException(number, "Phone cannot be null or empty.");
 
-        if (!Regex.IsMatch(number, Pattern))
-        {
-            throw new InvalidPhoneException(number, "Invalid phone number format. It must be a 9-digit numeric value.");
-        }
+        if (!Regex.IsMatch(number, Pattern)) throw new InvalidPhoneException(number, "Invalid phone number format. It must be a 9-digit numeric value.");
 
         return new Phone(number);
     }

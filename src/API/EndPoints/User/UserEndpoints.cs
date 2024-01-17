@@ -6,7 +6,7 @@ public static class UserEndpoints
     {
         var group = app.MapGroup("api/user");
 
-        group.RequireAuthorization(EndPointsShared.Admin).MapPost("create", async (CreateRequest request, ICommandDispatcher commandDispatcher, CancellationToken cancellationToken) =>
+        group.RequireAuthorization(EndPointsExtensions.Admin).MapPost("create", async (CreateRequest request, ICommandDispatcher commandDispatcher, CancellationToken cancellationToken) =>
         {
             var userCommand = new CreateCommand(request.Email, request.FirstName, request.LastName, request.Phone, request.Password);
 
